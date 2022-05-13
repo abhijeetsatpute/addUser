@@ -9,20 +9,32 @@ const AddUser = (props) => {
     const [enteredAge, setEnteredAge] = useState('')
     const [isUsernameValid, setisUsernameValid] = useState(true);
     const [isAgeValid, setisAgeValid] = useState(true);
+    const [error,setError] = useState();
     const submitHandler = (event) => {
         event.preventDefault();
         if (enteredUsername.trim() === "" && enteredAge.trim() === "") {
             setisUsernameValid(false);
             setisAgeValid(false);
-        }
-        if (enteredUsername.trim() === "") {
-            setisUsernameValid(false);
+            setError({
+                "title" : "Invalid input",
+                "message": "Please enter a valid name and age (non-empty values)."
+            })
             return;
-        } else if (enteredAge.trim() === "") {
-            setisAgeValid(false);
+        }
+        else if (enteredUsername.trim() === "") {
+            setisUsernameValid(false);
+            setError({
+                "title" : "Invalid Username",
+                "message": "Please enter a valid username (non-empty values)."
+            })
             return;
         }//here "+enteredAge" forces a string to be treated as a number
-        else if (+enteredAge < 0) {
+        else if (+enteredAge < 0 || enteredAge.trim() === "") {
+            setisAgeValid(false);
+            setError({
+                "title" : "Invalid Age",
+                "message": "Please enter a valid age (non-zero values)."
+            })
             return;
         }
         props.onAddUser(enteredUsername, enteredAge);
@@ -48,8 +60,13 @@ const AddUser = (props) => {
         }
     }
 
+    const errorHandler = () => {
+        setError(null);
+    }
+
     return (
         <div>
+            {error ? <ErrorModal title={error.title} message={error.message} onConfirm={errorHandler}/> : ""}
             <Card className={classes.input}>
                 <form onSubmit={submitHandler}>
                     <label htmlFor="username">Username</label>
