@@ -65,7 +65,7 @@ const AddUser = (props) => {
     }
 
     return (
-        <div>
+        <>
             {error ? <ErrorModal title={error.title} message={error.message} onConfirm={errorHandler}/> : ""}
             <Card className={classes.input}>
                 <form onSubmit={submitHandler}>
@@ -77,7 +77,7 @@ const AddUser = (props) => {
                     {isAgeValid & isUsernameValid ? "" : <p>Please enter correct details</p>}
                 </form>
             </Card>
-        </div>
+        </>
     );
 }
 

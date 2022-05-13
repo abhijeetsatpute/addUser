@@ -4,7 +4,7 @@ import classes from "./UserList.module.css"
 const UserList = (props) => {
     const usersCheck = props.users.length;
     return (
-        <div>
+        <>
             {(usersCheck >0)
                 && 
                 <Card className={classes.users}>
@@ -14,7 +14,7 @@ const UserList = (props) => {
                 </Card>
             }
             
-        </div>
+        </>
 
     );
 }
