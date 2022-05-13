@@ -5,7 +5,7 @@ const UserList = (props) => {
     return (
         <Card className={classes.users}>
             <ul>
-                {props.users.map(user => <li>{user.name} ({user.age} Years old.)</li>)}
+                {props.users.map(user => <li key={Math.random().toString()}>{user.name} ({user.age} Years old.)</li>)}
             </ul>
         </Card>
     );
